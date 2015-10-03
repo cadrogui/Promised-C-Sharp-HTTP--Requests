@@ -58,7 +58,7 @@ HTTPRequest request = new HTTPRequest (url, null);
 Dictionary<string, string> parameters = new Dictionary<string, string>();
 parameters.Add ("foo", "bar");
 
-request.GetJsonString ()
+request.GET (parameters)
 	.Then (response => Debug.Log(response))
 	.Catch (err => Debug.Log (err));
 ```
