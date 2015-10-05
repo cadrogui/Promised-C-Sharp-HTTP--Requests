@@ -2,14 +2,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading;
 
+using UnityEngine;
 
 namespace PromisedRequest{
-
+	
 	public class HTTPRequest {
 
 		private string url;
@@ -64,10 +62,6 @@ namespace PromisedRequest{
 					}
 				}
 
-				foreach(KeyValuePair<string, string> p in parameters){
-					client.QueryString.Add(p.Key, p.Value);
-				}
-
 				client.DownloadStringCompleted +=
 					(s, ev) =>
 				{
@@ -77,12 +71,15 @@ namespace PromisedRequest{
 						promise.Resolve(ev.Result);
 					}
 				};
-				
-				client.DownloadStringAsync(new Uri(this.url), null);
+
+				client.DownloadStringAsync(new Uri(this.url + "?" + PromisedRequest.Helpers.GenerateQueryString(parameters)), null);
 
 			}
 			return promise;
 		}
+
+
+
 
 	}
 
